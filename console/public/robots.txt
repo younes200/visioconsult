@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /bonjour.html
+Disallow: /webview.html
+Sitemap: https://nour.ma/api/sitemaps.xml
+Host: https://nour.ma

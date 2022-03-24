@@ -1,0 +1,9 @@
+artifacts
+node_modules
+.dockerignore
+Dockerfile
+yarn-error.log
+.git
+android
+fastlane
+ios

@@ -1,0 +1,70 @@
+apiVersion: voyager.appscode.com/v1beta1
+kind: Ingress
+metadata:
+  name: api-ingress
+  namespace: default
+  annotations:
+    ingress.appscode.com/rewrite-target: /
+    ingress.appscode.com/keep-source-ip: "true"
+    ingress.appscode.com/hsts: "true"
+    ingress.appscode.com/hsts-preload: "true"
+    ingress.appscode.com/hsts-include-subdomains: "true"
+    ingress.appscode.com/hsts-max-age: "100"    
+    ingress.appscode.com/affinity: "cookie"
+spec:
+  tls:
+  - hosts:
+    - api.visioconsult.care
+    - gateway.visioconsult.care
+    - mqtt.visioconsult.care
+    ref:
+      kind: Secret
+      name: cert-visioconsult
+  rules:
+    - host: gateway.visioconsult.care
+      http:
+        paths:
+        - path: /websocket
+          backend:
+            serviceName: websocket-gateway-production.production
+            servicePort: 8188
+          alpn:
+          - h2
+          - http/1.1
+          - http/1.0        
+        - path: /
+          backend:
+            serviceName: gateway-production.production
+            servicePort: 8088
+          alpn:
+          - h2
+          - http/1.1
+          - http/1.0
+    - host: api.visioconsult.care
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: api-production.production
+            servicePort: 80
+          alpn:
+          - h2
+          - http/1.1
+          - http/1.0
+    - host: mqtt.visioconsult.care
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: mosquitto-mosquitto.infra
+            servicePort: 9090
+          alpn:
+          - h2
+          - http/1.1
+          - http/1.0    
+    - host: mqtt.visioconsult.care          
+      tcp:
+        port: 1883
+        backend:
+          serviceName: mosquitto-mosquitto.infra
+          servicePort: 1883

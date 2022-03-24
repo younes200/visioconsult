@@ -1,0 +1,90 @@
+# Default values for mosquitto.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: arielev/mosquitto
+  tag: 1.5.5
+  pullPolicy: IfNotPresent
+  imagePullSecret: {}
+  ##  dockerRegistry: docker.io
+  ##  dockerUsername:
+  ##  dockerPassword:
+
+nameOverride: ""
+fullnameOverride: ""
+
+dependantServices: {}
+  ## Specify dependant container here as example below
+  ##- name: init-mysql
+  ##  image: busybox
+  ##  command: ['sh', '-c', 'until nc -z mysql.mysql.svc.cluster.local:3306 ; do echo waiting for mysql; sleep 2; done;']
+
+## Mosquitto certificates path must be:
+##  cafile /mosquitto/certs/ca.crt
+##  keyfile /mosquitto/certs/server.key
+##  certfile /mosquitto/certs/server.crt
+config: |-
+  connection_messages true
+  log_timestamp true
+  log_type all
+  log_dest stdout
+
+  listener 1883
+  listener 9090
+  protocol websockets
+
+  max_inflight_messages 1
+
+  auth_plugin /mosquitto/config/auth-plug.so
+  auth_opt_backends jwt
+  auth_opt_http_ip 35.246.135.133
+  auth_opt_http_hostname api.visioconsult.care
+  auth_opt_http_getuser_uri /users/mqtt/auth
+  auth_opt_http_superuser_uri /users/mqtt/superuser
+  auth_opt_http_aclcheck_uri /users/mqtt/acl
+  # auth_opt_http_getuser_params domain=DOMAIN,port=PORT
+  # auth_opt_http_superuser_params domain=DOMAIN,port=PORT
+  # auth_opt_http_aclcheck_params domain=DOMAIN,port=PORT
+
+tls:
+  enabled: false
+  certificates:
+#   ca: |-
+#     -----BEGIN CERTIFICATE-----
+#     ...
+#     -----END CERTIFICATE-----
+#   cert: |-
+#     -----BEGIN CERTIFICATE-----
+#     ...
+#     -----END CERTIFICATE-----
+#   key: |-
+#     -----BEGIN RSA PRIVATE KEY-----
+#     ...
+#     -----END RSA PRIVATE KEY-----
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 2Gi
+  storageClass: standard
+
+service:
+  type: ClusterIP
+  mqttPort: 1883
+  mqttTLSPort: 8883
+  websocketPort: 9090
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi

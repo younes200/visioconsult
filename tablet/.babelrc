@@ -1,0 +1,33 @@
+{
+  "presets": [
+    "module:metro-react-native-babel-preset"
+  ],
+  "plugins": [
+    "convert-to-json",
+    "@babel/plugin-proposal-export-default-from",
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "cwd": "babelrc",
+        "extensions": [
+          ".js",
+          ".ios.js",
+          ".android.js"
+        ],
+        "alias": {
+          "~": "./src"
+        }
+      }
+    ],
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+  ],
+  "retainLines": true
+}

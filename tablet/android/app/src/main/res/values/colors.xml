@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="splashBackground" type="color">#002058</item>
+    <color name="primary_dark">#000000</color>
+    <color name="background">#002058</color>
+
+    <color name="blue">#002058</color>
+
+
+
+</resources>

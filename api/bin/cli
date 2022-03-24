@@ -1,0 +1,138 @@
+#!/usr/bin/env node
+
+const chalk = require("chalk");
+const path = require("path");
+const log = console.log;
+
+var fs = require("fs-extra");
+var Enquirer = require("enquirer");
+var enquirer = new Enquirer();
+var program = require("commander");
+enquirer.register("list", require("prompt-list"));
+
+process.env.CLI = true;
+
+program.version("0.1.0");
+
+require('events').EventEmitter.defaultMaxListeners = 100;
+
+program
+  .command("fixtures")
+  //.option('-p, --purge', 'Purge before')
+  .description("write seeds using data from server/seed/[env]")
+  .action(async function (action) {
+    log(chalk `{yellow booting loopback app ...} `);
+    var app = require(process.cwd());
+    log(chalk ` {yellow Current environment=${app.get("env")} ...}  `);
+    app.on('booted', async () => {
+      app.set("Fixture", true);
+      try {
+        await app.loadFixtures();
+        log(chalk ` {green Fixture Loaded 👍} `);
+        return process.exit(0);
+      } catch (e) {
+        log(chalk `{red 'Error on fixtures loading: ${e.message}}`, e);
+        return process.exit(1);
+      }
+    })
+  });
+
+program
+  .command("useradd")
+  .option("-r, --role <role>", "user role")
+  .option("-e, --email <email>", "user email")
+  .option("-u, --username <username>", "username")
+  .option("-p, --pwd <password>", "user password")
+  .action(async function (action, options) {
+    if (!action.role || !action.email || !action.username || !action.pwd) {
+      log(chalk ` {red options missing}`);
+      return process.exit(1);
+    }
+
+    log(chalk `{yellow booting loopback app ...} `);
+    const app = require(process.cwd());
+    const Role = app.models.Role;
+    const User = app.models.user;
+    const RoleMapping = app.models.RoleMapping;
+
+    let role = await Role.findOne({
+      where: {
+        name: action.role
+      }
+    });
+
+    if (!role) {
+      log(chalk `{red 'Rolde  ${action.role} not found}`);
+      return process.exit(1);
+    }
+
+    const result = await User.count({
+      email: action.email
+    });
+
+    //TODO check result
+    const createdUser = await User.create({
+      username: action.username,
+      email: action.email,
+      password: action.pwd
+    });
+
+    await role.principals.create({
+      principalType: RoleMapping.USER,
+      principalId: createdUser.id
+    });
+
+    log(chalk `{green user created 👍}`);
+    process.exit();
+  });
+
+program
+  .command("codegen")
+  .description("Generate client api from Swagger file")
+  .action(file => {
+    log(chalk `{yellow booting loopback app ...} `);
+    const swaggerGen = require("../codegen");
+    var app = require(process.cwd());
+
+    app.on('booted', () => {
+      log(chalk `{yellow App Loaded.}`);
+      var createSwaggerObject = require("loopback-swagger").generateSwaggerSpec;
+      var swaggerObject = createSwaggerObject(app, {
+        protocol: 'http',
+        host: 'localhost',
+        basePath: '/',
+      });
+
+
+      log(chalk `{yellow SwaggerObject created.}`);
+
+      //console.log('swaggerObject', swaggerObject)
+      let opt = {
+        swagger: swaggerObject,
+        moduleName: "api",
+        className: "api"
+      };
+      const {
+        codeResult,
+        docResult
+      } = swaggerGen(opt);
+
+      log(chalk `{yellow writing files...}`);
+      try {
+        fs.writeFileSync(path.join(__dirname, "../codegen/Agent.js"), codeResult, 'utf8');
+        fs.writeFileSync(path.join(__dirname, "../codegen/API.md"), docResult, 'utf8');
+        log(chalk `{green Done, client code created 👍 }`);
+        process.exit();
+      } catch (e) {
+        log(chalk `{red writing files failed }`, e);
+        process.exit(1);
+      }
+
+    })
+
+
+
+  });
+
+program.parse(process.argv);
+if (!program.args.length) program.help();

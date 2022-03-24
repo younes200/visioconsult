@@ -1,0 +1,77 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "rules": {
+    "class-methods-use-this": "off",
+    "import/named": 2,
+    "import/namespace": 2,
+    "import/default": 2,
+    "import/export": 2,
+    "react/jsx-filename-extension": [
+      1, {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/prefer-stateless-function": [
+      2, {
+        "ignorePureComponents": true
+      }
+    ],
+    "react/forbid-prop-types": [0, {
+      "forbid": []
+    }],
+    "import/extensions": [1, "never", {
+      "svg": "always"
+    }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": true,
+        "peerDependencies": false
+      }
+    ],
+    "no-use-before-define": ["error", {
+      "functions": false,
+      "classes": false
+    }]
+  },
+  "settings": {
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "parser": "flow"
+    }],
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    },
+    "import/resolver": {
+      "babel-module": {
+        "root": ["./src"],
+        "cwd": "babelrc",
+        "extensions": [".js", ".ios.js", ".android.js"],
+        "alias": {
+          "~": "./src"
+        }
+      }
+    }
+  },
+  "plugins": [
+    "prettier",
+    "react",
+    "react-native",
+    "flowtype",
+    "jsx-a11y",
+    "import"
+  ],
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "fetch": true
+  }
+}

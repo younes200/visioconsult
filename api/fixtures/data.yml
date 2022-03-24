@@ -1,0 +1,25 @@
+User:
+  user{1..20}:
+    username: "user{@}"
+    email:  "user{@}@visioconsult.care"
+    password: "user{@}"
+
+PatienSheet:
+  patiensheet{1..20}:
+    firstname: '{{name.firstName}}'
+    lastname: "{{name.lastName}}"
+    phone: "{{phone.phoneNumberFormat(1)}}"
+    gender: 'male'
+    phoneVerified: true
+    birthday: "{{date.past}}"
+    presentation: "{{lorem.text}}"
+
+
+Picture:
+  picture{1..20}:
+    pid: "{{random.uuid}}"
+    url: "{{internet.avatar}}"
+    thumbnail: "{{internet.avatar}}"
+    userId: "$['user{@}']['id']"
+    width: 128
+    height: 128

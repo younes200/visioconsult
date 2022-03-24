@@ -1,0 +1,54 @@
+# Default values for api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  name: api
+  tier: frontend
+  type: NodePort
+  protocol: TCP
+  internalPort: 3000
+  externalPort: 80
+  
+env:
+  LOG_LEVEL: info
+  NODE_ENV: production
+  MONGODB_URI: 
+  SENTRY_DSN:
+  ONESIGNAL_APP_ID: 
+  ONESIGNAL_API_KEY: 
+  ONESIGNAL_USER_AUTH_KEY: 
+  CLOUDINARY_API_KEY:
+  CLOUDINARY_API_SECRET:
+  CONSOLE_PWD:
+  MJ_APIKEY_PUBLIC:
+  MJ_APIKEY_PRIVATE:
+  GATEWAY_AUTH_SECRET:
+  
+jobs:
+  - name: example
+    schedule: "*/5 * * * *"
+    command: ["node"]
+    args: ["/usr/src/app/server/tasks/job.js"]
+    failedJobsHistoryLimit: 1
+    successfulJobsHistoryLimit: 3
+    concurrencyPolicy: Forbid
+
+resources: {}
+  # limits:
+  #   memory: 512Mi
+  # requests:
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

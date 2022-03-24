@@ -1,0 +1,14 @@
+# Windows files should use crlf line endings
+# https://help.github.com/articles/dealing-with-line-endings/
+*.bat text eol=crlf
+.secrets.env filter=git-crypt diff=git-crypt
+tablet/env.production  filter=git-crypt diff=git-crypt
+tablet/env.beta  filter=git-crypt diff=git-crypt
+tablet/android/release-key.jks  filter=git-crypt diff=git-crypt
+tablet/android/app/google-services.json filter=git-crypt diff=git-crypt
+tablet/android/app/release-key.keystore filter=git-crypt diff=git-crypt
+keys/gke/GOOGLE_SERVICE_ACCOUNT_JSON_KEY filter=git-crypt diff=git-crypt
+k8s/turnserver.conf filter=git-crypt diff=git-crypt
+gateway/conf/janus.cfg filter=git-crypt diff=git-crypt
+frontend/.firebaserc  filter=git-crypt diff=git-crypt
+console/.firebaserc  filter=git-crypt diff=git-crypt

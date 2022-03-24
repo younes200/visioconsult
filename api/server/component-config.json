@@ -1,0 +1,16 @@
+{
+    "./components/fixtures": {
+        "fixturePath": "/fixtures",
+        "append": false
+    },
+    "./components/google-cloud": {},
+    "loopback-component-explorer": {
+        "mountPath": "/explorer"
+    },
+    "loopback-component-fsm": {},
+    "loopback3-xtotalcount": {
+        "pattern": [
+            "*.find"
+        ]
+    }
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"/>
+    <string name="app_name">VisioConsult</string>
+</resources>

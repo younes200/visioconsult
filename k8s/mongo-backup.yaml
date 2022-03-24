@@ -1,0 +1,12 @@
+apiVersion: kubedb.com/v1alpha1
+kind: Snapshot
+metadata:
+  name: snapshot-visioconsult-test
+  namespace: infra
+  labels:
+    kubedb.com/kind: MongoDB
+spec:
+  databaseName: mongo
+  storageSecretName: mongo-snap-secret
+  gcs:
+    bucket: visioconsult-mongo-backup

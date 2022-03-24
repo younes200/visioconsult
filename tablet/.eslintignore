@@ -1,0 +1,7 @@
+**/node_modules
+**/android
+**/ios
+**/vendors
+**/src/theme
+flow-typed/
+.*/node_modules/.*

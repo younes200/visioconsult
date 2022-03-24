@@ -1,0 +1,37 @@
+replicaCount: 1
+
+image:
+  repository: mcroth/docker-janus
+  tag: latest
+  pullPolicy: Always
+
+service:
+  name: gateway
+  tier: frontend
+  type: NodePort
+  protocol: TCP
+  internalPort: 8088
+  externalPort: 8088
+
+serviceWebsocket:
+  name: gateway-websocket
+  tier: frontend
+  type: NodePort
+  protocol: TCP
+  internalPort: 8188
+  externalPort: 8188  
+
+env: 
+  ENV: production
+
+resources: {}
+  # limits:
+  #   memory: 512Mi
+  # requests:
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

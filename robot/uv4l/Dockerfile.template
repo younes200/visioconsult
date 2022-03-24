@@ -1,0 +1,39 @@
+# Inspired from https://github.com/balena-io-playground/balena-cam-uv4l
+
+FROM balenalib/%%BALENA_MACHINE_NAME%%-debian:stretch
+
+# Install the UV4L PPA
+RUN curl -s http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | apt-key add -
+RUN echo "deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/stretch stretch main" >> /etc/apt/sources.list
+
+# Install dependencies as well as the proper version of uv4l-webrtc
+RUN apt-get update -q && \
+  apt-get install -yq --no-install-recommends --allow-unauthenticated \
+    uv4l \
+    uv4l-mjpegstream \
+    uv4l-raspidisp \
+    uv4l-server \
+    uv4l-uvc \
+    uv4l-xscreen \
+    uv4l-webrtc$([ $(uname -m) = armv6l ] && echo -armv6) \
+    vlc \
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Move to app dir
+WORKDIR /usr/src/app
+
+# Configure env vars
+ENV CONF_DIR=/data/config/ \
+  INITSYSTEM=on
+
+# Copy over our project files
+COPY ./uv4l-uvc.conf /data/config/uv4l-uvc.conf
+
+#COPY uv4l.service /etc/systemd/system/uv4l.service
+#RUN systemctl enable /etc/systemd/system/uv4l.service
+
+# Disable uv4l_raspicam service which we'll manually start later
+# RUN systemctl disable uv4l_raspicam
+
+# Start app
+CMD systemctl start uv4l-uvc

@@ -1,0 +1,51 @@
+# Default values for api.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: visioconsult-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  name: api
+  tier: frontend
+  type: NodePort
+  protocol: TCP
+  internalPort: 3000
+  externalPort: 80
+
+env:
+  NODE_ENV: dev
+  MONGODB_URI: 
+  REDIS_URL: 
+  FACEBOOK_APP_ID: XXXX
+  FACEBOOK_APP_SECRET: XXX
+
+ingress:
+  enabled: true
+  annotations: 
+    #kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - visioconsult.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

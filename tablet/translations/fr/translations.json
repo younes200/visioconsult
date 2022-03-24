@@ -1,0 +1,24 @@
+{
+  "landing":{
+    "buttons":{
+      "login": "Se connecter"
+    }
+  },
+  "login":{
+    "title":"Se Connecter",
+    "description":"Entre l'email et le mot de passe",
+    "username":{
+      "label": "Utilisateur"
+    },
+    "password":{
+      "label": "Mot de passe"
+    },
+    "buttons":{
+      "submit": "Valider",
+      "forgot":"Mot de passe oublier"
+    },
+    "errors":{
+      "serverError": "Impossible de contacter de le serveur"
+    }
+  }
+}

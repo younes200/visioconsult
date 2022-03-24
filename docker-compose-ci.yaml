@@ -1,0 +1,59 @@
+version: '3.2'
+
+networks:
+  local:
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: 'test'
+      cache_from:
+        - $API_IMAGE:latest
+    depends_on:
+      - mongo
+      - redis
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: 'test'
+      LOG_LEVEL: debug
+      MONGODB_URI: mongodb://mongo:27017/visioconsult-dev
+      REDIS_URI: redis://redis:6379/
+      FACEBOOK_APP_ID: "XX"
+      FACEBOOK_APP_SECRET: "XX"
+      ONESIGNAL_APP_ID: "XX"
+      ONESIGNAL_API_KEY: "XX"
+      ONESIGNAL_USER_AUTH_KEY: "XX"
+      CLOUDINARY_API_KEY: "XX"
+      CLOUDINARY_API_SECRET: "XX"
+      CLOUDINARY_URL: "XX"
+      CONSOLE_PWD: "admin"
+      MJ_APIKEY_PUBLIC: ""
+      MJ_APIKEY_PRIVATE: ""
+      TURN_URL: "turn.visioconsult.care"
+      TURN_SECRET: "9LvkwEzHjrcxfLxDze"
+    command: yarn start
+    networks:
+      - local
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - local
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - local
+
+
+
+
+

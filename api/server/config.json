@@ -1,0 +1,24 @@
+{
+    "restApiRoot": "/",
+    "host": "0.0.0.0",
+    "cookieSecret": "F1FEE670-3C72-11E4-916C-0800200C9A66",
+    "logoutSessionsOnSensitiveChanges": false,
+    "remoting": {
+        "context": false,
+        "rest": {
+            "handleErrors": false,
+            "normalizeHttpPath": false,
+            "xml": false
+        },
+        "json": {
+            "strict": false,
+            "limit": "100kb"
+        },
+        "urlencoded": {
+            "extended": true,
+            "limit": "100kb"
+        },
+        "cors": false
+    },
+    "legacyExplorer": false
+}

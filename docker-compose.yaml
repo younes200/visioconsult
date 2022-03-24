@@ -1,0 +1,119 @@
+version: '3.2'
+
+volumes:
+  mongodb:
+networks:
+  local:
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: development
+    depends_on:
+      - mongo
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/node/.cache/yarn
+      - ./api/codegen:/usr/src/app/codegen:delegated
+      - ./frontend/src/Agent.js:/usr/src/app/codegen/Agent.js
+      - ./api/common:/usr/src/app/common:delegated
+      - ./api/cron:/usr/src/app/cron:delegated
+      - ./api/fixtures:/usr/src/app/fixtures:delegated
+      - ./api/server:/usr/src/app/server:delegated
+      - ./api/.gitignore:/usr/src/app/.gitignore:delegated
+      - ./api/package.json:/usr/src/app/package.json:delegated
+      - ./api/yarn.lock:/usr/src/app/yarn.lock:delegated
+      - ./api/cron:/etc/periodic:delegated
+    env_file: 
+      - ./.secrets.env
+    command: [sh, -c, "yarn --no-progress && crond -l 2  && yarn dev"]
+    networks:
+      - local
+
+  console:
+    build:
+      context: ./console
+      dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: development
+    depends_on:
+      - api
+    ports:
+      - "4001:4001"     
+    volumes:
+      - /home/node/.cache/yarn
+      - ./console/package.json:/usr/src/app/package.json
+      - ./console/firebase.json:/usr/src/app/firebase.json      
+      - ./console/yarn.lock:/usr/src/app/yarn.lock      
+      - ./console/src:/usr/src/app/src
+      - ./console/ssl:/usr/src/app/ssl
+      - ./console/public:/usr/src/app/public
+      - ./console/.babelrc:/usr/src/app/.babelrc
+      - ./console/.gitignore:/usr/src/app/.gitignore
+      - ./console/webpack.config.js:/usr/src/app/webpack.config.js
+      - ./console/webpack.config.prod.js:/usr/src/app/webpack.config.prod.js      
+      - ./console/build:/usr/src/app/build
+    command: [sh, -c, "yarn --no-progress && yarn start"]  
+    restart: unless-stopped
+    networks:
+      - local    
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: development
+    depends_on:
+      - api
+    ports:
+      - "4000:3000"
+    volumes:
+      - /home/node/.cache/yarn
+      - ./frontend/package.json:/usr/src/app/package.json
+      - ./frontend/firebase.json:/usr/src/app/firebase.json
+      - ./frontend/.firebaserc:/usr/src/app/.firebaserc
+      - ./frontend/yarn.lock:/usr/src/app/yarn.lock      
+      - ./frontend/src:/usr/src/app/src
+      - ./frontend/public:/usr/src/app/public
+      - ./frontend/.gitignore:/usr/src/app/.gitignore
+    command: [sh, -c, "yarn --no-progress && yarn start"]  
+    restart: unless-stopped
+    environment:
+      REACT_APP_API_URL: http://localhost:3000
+      # REACT_APP_API_URL: https://api.visioconsult.care
+      REACT_APP_MQTT_URL: wss://mqtt.visioconsult.care
+      REACT_APP_GATEWAY_URL: ws://localhost:8188/
+      # REACT_APP_GATEWAY_URL: wss://gateway.visioconsult.care/websocket
+
+    networks:
+      - local   
+
+  mongo:
+    image: mongo
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/mongodb    
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database:/var/lib/mongodb
+    networks:
+      - local
+
+  gateway:
+    build:
+      context: ./gateway/
+    volumes:
+      - ./gateway/conf:/opt/janus/etc/janus/
+    networks:
+      - local      
+    ports:
+      - 8088:8088
+      - 8188:8188
+      - 8989:8989 #https, wss

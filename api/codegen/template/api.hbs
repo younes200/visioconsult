@@ -1,0 +1,143 @@
+/* eslint-disable */
+import axios from 'axios'
+import qs from 'qs'
+let domain = ''
+
+let instance = axios.create({
+    withCredentials: true
+})
+
+export const setBaseURL = domain => {
+    instance.defaults.baseURL = domain
+}
+export const getClient = () => {
+    return instance
+}
+
+export const setAccessToken = $accessToken => {
+    instance.defaults.headers.common['Authorization'] = $accessToken
+}
+export const clearAccessToken = () => {
+    instance.defaults.headers.common['Authorization'] = null
+}
+
+export const ERROR_CODES = {
+    SERVER_NOT_RESPONDING: "SERVER_NOT_RESPONDING",
+    REQUEST_FAILED: "REQUEST_FAILED",
+    OFFLINE: "OFFLINE"
+};
+
+export class ServerError extends Error {
+    constructor(error, ...params) {
+        // Pass remaining arguments (including vendor specific ones) to parent constructor
+        super(...params);
+
+        // Maintains proper stack trace for where our error was thrown (only available on V8)
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, ServerError);
+        }
+
+        this.status = -1; // server not responding ot request error
+
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            this.status = error.status;
+            this.statusText = error.statusText;
+            this.headers = error.response.headers;
+            if (error.response.data) {
+                if (error.response.data.error) {
+                    this.errorCode =
+                        error.response.data.error.errorCode ||
+                        error.response.data.error.code;
+                    this.message = error.response.data.error.message;
+                }
+                this.statusCode = error.response.data.statusCode;
+            }
+        } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            this.request = error.request;
+            this.message = "The request was made but no response was received";
+            this.errorCode = ERROR_CODES.SERVER_NOT_RESPONDING;
+            this.status = error.status;
+            this.statusText = error.statusText;
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            this.message = error.message;
+            this.errorCode = ERROR_CODES.REQUEST_FAILED;
+        }
+
+        this.date = new Date();
+    }
+
+    toString() {
+        return this.message;
+    }
+
+    toJSON() {
+        return {
+            data: this.data,
+            status: this.status,
+            headers: this.headers,
+            errorCode: this.errorCode,
+            message: this.message,
+            errors: this.errors
+        };
+    }
+}
+
+
+instance.interceptors.response.use(
+  response => response,
+  error => Promise.reject(new ServerError(error))
+);
+
+
+
+export const request = (method, url, body, queryParameters, form, config) => {
+    method = method.toLowerCase()
+    let keys = Object.keys(queryParameters)
+    let queryUrl = url
+    if (keys.length > 0) {
+        queryUrl = url + '?' + qs.stringify(queryParameters)
+    }
+    if (body) {
+        return instance[method](queryUrl, body, config)
+    } else if (method === 'get') {
+        return instance[method](queryUrl, {
+            params: form
+        }, config)
+    } else {
+        return instance[method](queryUrl, qs.stringify(form), config)
+}
+}
+
+
+/**
+ * Authenticate with facebook token
+ * request: userFindByIdRoles
+ * URL: GET /auth/facebook-token-mobile?token
+ * @param token - facebook user token
+ */
+export const loginWithFacebook = function (parameters = {}) {
+    const config = parameters.$config
+    let path = '/auth/facebook-token-mobile?access_token={token}'
+    let body
+    let queryParameters = {}
+    let form = {}
+    path = path.replace('{token}', `${parameters['token']}`)
+    if (parameters['token'] === undefined) {
+        return Promise.reject(new Error('Missing required parameter: id'))
+    }
+    if (parameters.$queryParameters) {
+        Object.keys(parameters.$queryParameters).forEach(function (parameterName) {
+            queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+        })
+    }
+    return request('get', path, body, queryParameters, form, config)
+}
+
+
+{{> methods }}

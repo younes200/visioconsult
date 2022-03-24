@@ -1,0 +1,24 @@
+apiVersion: kubedb.com/v1alpha1
+kind: MongoDB
+metadata:
+  name: mongo
+  namespace: infra
+spec:
+  version: "3.6-v1"
+  replicas: 3
+  replicaSet:
+    name: rs0
+  storageType: Durable
+  storage:
+    storageClassName: "standard"
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 100Gi
+  backupSchedule:
+    cronExpression: "@every 24h"
+    storageSecretName: mongo-snap-secret
+    gcs:
+      bucket: mongodb        
+  terminationPolicy: DoNotTerminate

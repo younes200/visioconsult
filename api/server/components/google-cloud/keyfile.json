@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "visioconsult-224414",
+  "private_key_id": "fcd96bace83a237d76c8eb7c0b9386c71e296231",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCjhHTAIN/a3CJd\n/W70mCuWDi66MEdkLvznohuv6qdQjZ4ta/a81iJ/MdyXk02uco5eKaLLQByrm5RZ\nvqFDFpR7xu18Xn8V9dhu9B7EkkJAj0AB1xbsOfeY9iJQfOBpkw+8ADnHRTTSgqyK\nYNzqjjBp4anrOmg7zcft28/TDBvIoFiRxJTDPAZT/pGxCJcAZsJbWm/mlvoAxYP7\nN22mfhtpGwk3qLM5tCBNtA43y0Wv5jz9oIqrYRYmKxCI6rS8cvSmhNmBphgXJmZs\n6MBVMpPX685GiphFRjpo2RK1Gw32x+9B+toMK4lnrnfKkzKZohKjYw4KFrrcnKZV\nrgTxnQknAgMBAAECggEAR5dnHHVoPSTzYQ5kRW/YaXblK3yWzTyrWukFUUSeI60V\na5Kg8TWZ3fGhQLXsJWwffAejsHRt+Q6BabeGWF6q/PRwJusiniVIsO9uByd4HVb6\nsbOP5DZO+ugMxwudn2uVUH0SzvW0dlRjIaTeJE3D0Z/NKuGkIEbs+W2rdJ4RDgm9\n8jV70pZCKrW30aNMSkunRcieeidQNxeiyuDG+aOC7Yh+FfWbKk5d6TSTcCRresNE\ngDLnxb1HUuONV260OBB//69raOcgyW314bty3LSLgiJXwOk3UfEkxdOvhaM5GPWR\n/XKKMQku+At/fp5/c5vQrPojKxFZfPRh/MCwkxaaLQKBgQDkQhj764ZK1lxyUTvb\nLXbYf7JitgFy6k3q6ufLvmE+TKfCfgLJtOA/KN0AomEghTp5Znz/69rAaEzATgvD\nIhKlQUahFAdlcQoyWtP0Zuh2pBtse0JFLBHWeJauAKrh1PRCYP9frTBO7JX0wdCY\nl3oiRzCTT2T7bsf5BkEiecdAdQKBgQC3ZAxqwYnNoRS5TyaFCc/LS/Pim5BT0IaB\n5LogFcwf4vVaDgwhCl69/bVztL2ZcIE43mqlKh94M3Ergxj5i6qiIF3qIHxGiZbT\n0dTyQgJBXZr8TQrpyaF2gnnZQwnzyfC7/OYNBhW40Alssn6beH0vWJS+ZBgLqe4B\nuTJ2FAGvqwKBgQChjcrDGvrsovXBj49O3MneB9uJFArIe990Ipi20uNexcCC3s84\nVkXVTiXFmigmbUVqwUg9loA4aFnSTirzDH2n6yCDR3rIqI4v/6s+s0tbFWG3kTHh\nZYSmiKkVNLG9rwzGooJ9BEZJxheIqVjrd2LhOgO+b5Yog0sUDQIy1YBaNQKBgQCd\nS/8qgh5EdWllGHKdobDNWrQxJeVBPpZgS2MpqgiPQQfY2julC1P/+eDtAZWuSkVM\nFdm7GMotO1JSU/vT7uvIa6Kh8oMlrVXlERFpSRzOHA+XYC2AISWQlJEWvN2IcSk+\n1MgtW46+GhI7XU4i49HcDkpmk0vclUBD0ilqBfb8SQKBgQCUlGhS7dD9IJZl7BBI\nZ8Q0Ck4stOCvjJreRirs1d90+L1Ns73U/Lc2WsO3IpkvuFgH5PgSFySdxd91z4c6\nMn9UxwaCBkfqpaZ+/bFCbr68Tc2abhdRkNqvBb7UXyoxfVDPhxKhm8JIACk7hJ9V\nluUGyOO+/fB2WvQqagRVka2bDg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "bucket-upload@visioconsult-224414.iam.gserviceaccount.com",
+  "client_id": "112540766161832912286",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bucket-upload%40visioconsult-224414.iam.gserviceaccount.com"
+}

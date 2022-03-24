@@ -1,0 +1,25 @@
+{
+    "name": "accessToken",
+    "plural": "accessToken",
+    "base": "AccessToken",
+    "properties": {},
+    "validations": [],
+    "relations": {
+      "user": {
+        "type": "belongsTo",
+        "model": "user",
+        "foreignKey": "userId"
+      }
+    },
+    "hidden": [],
+    "acls": [
+      {
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "admin",
+        "permission": "ALLOW"
+      }
+    ],
+    "methods": {}
+  }
+  

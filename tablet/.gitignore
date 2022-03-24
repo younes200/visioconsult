@@ -1,0 +1,71 @@
+ios/build
+npm-debug.*
+.DS_Store
+*.ipa
+ios/Pods
+
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+ios/build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+.DerivedData
+artifacts
+
+# Android/IntelliJ
+#
+build/
+android/app/build/
+.idea
+.gradle
+local.properties
+*.iml
+android/build-cache
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+tablet/android/build-cache
+
+# BUCK
+buck-out/
+\.buckd/
+
+
+## Secrets
+*.secret
+
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
+report.xml
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+
+# Bundle artifact
+*.jsbundle
+.tmp
+!gradle/wrapper/gradle-wrapper.jar

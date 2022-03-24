@@ -1,0 +1,12 @@
+{
+    "db": {
+        "name": "db",
+        "connector": "mongodb",
+        "url": "${MONGODB_URI}",
+        "useNewUrlParser":"true"
+    },
+    "transient": {
+        "name": "transient",
+        "connector": "transient"
+    }
+}

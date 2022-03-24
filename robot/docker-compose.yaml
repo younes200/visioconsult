@@ -1,0 +1,41 @@
+version: '2'
+volumes:
+  robot-data:
+services:
+  frontend:
+    labels:
+      io.balena.features.supervisor-api: '1'
+      io.balena.features.balena-api: '1'
+      io.balena.update.strategy: download-then-kill
+    build: .
+    privileged: true
+    # devices:
+      # - /dev/ttyUSB0:/dev/ttyUSB0
+    restart: always
+    volumes:
+      - 'robot-data:/data'
+    environment:
+      API_URL: https://api.visioconsult.care/ 
+      JANUS_URL: http://uv4l:8090
+      NODE_ENV: production
+      PORT: 7000
+    expose:
+      - "7000"
+  uv4l:
+    build: ./uv4l
+    privileged: true
+    restart: always
+    volumes:
+      - 'robot-data:/data'    
+    expose:
+      - "8090"
+      - "8188"
+  proxy:
+    build: ./haproxy
+    restart: always
+    depends_on:
+      - frontend
+      - uv4l
+    ports:
+      - "80:80"
+      

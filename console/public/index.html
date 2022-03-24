@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="UTF-8">
+  <title>VisoConsult</title>
+  <meta name="fragment" content="!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="VisoConsult">
+  <meta property="og:type" content="website" />
+  <meta name="google" content="notranslate" />
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCn2L1JcC0YafBNByhgmUAentzdUTW6tH4"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></script>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <style>
+    body {
+      
+    }
+    body.loading {
+      margin: 0px;
+      width: 100vw;
+      height: 100vh;
+      background-color: #002058;
+    }
+
+    body.loading #content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      font-size: 0px;
+    }
+
+    body.loading #logo {
+      position: absolute;
+      display: block;
+      width: 500px;
+      height: 395px;
+      top: calc(50vh - 50px);
+      left: calc(50vw - 50px);
+    }
+
+    .lds-ring {
+      display: inline-block;
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    .lds-ring div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 51px;
+      height: 51px;
+      margin: 6px;
+      border: 6px solid #fff;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: #fff transparent transparent transparent;
+    }
+    .lds-ring div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    .lds-ring div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    .lds-ring div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+    @keyframes lds-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+  </style>
+
+</head>
+
+<body class="loading">
+
+  <div id="content" tabindex="-1" style="outline: none;">
+
+    <div id="logo">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd /usr/src/app && node /usr/src/app/server/tasks/alerts.js >> /var/log/cron.log 2>&1

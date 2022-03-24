@@ -1,0 +1,11 @@
+{
+    "db": {
+        "name": "db",
+        "connector": "mongodb",
+        "url": "${MONGODB_URI}"
+    },
+    "transient": {
+        "name": "transient",
+        "connector": "transient"
+    }
+}

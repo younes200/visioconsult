@@ -1,0 +1,131 @@
+{
+    "name": "Device",
+    "plural": "devices",
+    "base": "PersistedModel",
+    "strict": true,
+    "scope": {},
+    "hidden": [],
+    "protected": [],
+    "idInjection": false,
+    "x-codegen": false,
+    "mixins": {
+        "TimeStamp": {
+            "required": true
+        }
+    },
+    "indexes": {
+        "unique_constraint": {
+            "keys": {
+                "uid": 1,
+                "userId": 1
+            },
+            "options": {
+                "unique": true
+            }
+        }
+    },
+    "properties": {
+        "uid": {
+            "type": "string",
+            "required": true
+        },
+        "type": {
+            "type": "String"
+        },
+        "appVersion": {
+            "type": "String"
+        },
+        "brand": {
+            "type": "String"
+        },
+        "locale": {
+            "type": "String"
+        },
+        "systemVersion": {
+            "type": "String"
+        },
+        "manufacturer": {
+            "type": "String"
+        },
+        "model": {
+            "type": "String"
+        },
+        "name": {
+            "type": "String"
+        },
+        "carrier": {
+            "type": "String"
+        },
+        "buildNumber": {
+            "type": "String"
+        },
+        "apiLevel": {
+            "type": "String"
+        },
+        "bundleLabel": {
+            "type": "String"
+        },
+        "timezone": {
+            "type": "String"
+        },
+        "userId": {
+            "type": "any",
+            "required": true
+        },
+        "os": {
+            "type": "string"
+        }
+    },
+    "validations": [],
+    "relations": {
+        "user": {
+            "type": "belongsTo",
+            "model": "user",
+            "foreignKey": "userId"
+        }
+    },
+    "methods": {},
+    "acls": [{
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "admin",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "$owner",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "WRITE",
+            "principalType": "ROLE",
+            "principalId": "$owner",
+            "permission": "ALLOW"
+        },
+        {
+            "accessType": "WRITE",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "DENY"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "$everyone",
+            "permission": "DENY"
+        },
+        {
+            "accessType": "READ",
+            "principalType": "ROLE",
+            "principalId": "$unauthenticated",
+            "permission": "DENY"
+        },
+        {
+            "accessType": "WRITE",
+            "principalType": "ROLE",
+            "principalId": "$unauthenticated",
+            "permission": "DENY"
+        }
+    ]
+}

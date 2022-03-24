@@ -1,0 +1,157 @@
+{
+    "name": "PatientSheet",
+    "plural": "patientsheets",
+    "base": "PersistedModel",
+    "strict": true,
+    "scope": {
+        "include": ["comments"]
+    },
+    "hidden": [],
+    "protected": [],
+    "idInjection": false,
+    "x-codegen": true,
+    "mixins": {
+        "TimeStamp": {
+            "required": true
+        }
+    }, 
+    "properties": { 
+        "comments": {
+            "type": "array",
+            "default": []
+        },
+        "firstname": {
+           "type": "string",
+           "required": true
+        },
+        "lastname": {
+            "type": "string"
+        },
+        "birthday": {
+            "type": "string"
+        }, 
+        "age": {
+            "type": "number"
+        },
+        "gender": {
+            "type": "string"
+        },
+        "weight":{
+            "type": "number"
+        },
+        "height":{
+            "type": "number"
+        },
+
+        "userId": {
+          "type": "any",
+            "required": true
+        },
+        "phone": {
+            "type": "string"
+        },
+        "doctorName":{
+            "type":"string"
+        },
+        "doctorPhone":{
+            "type":"string"
+        },
+        "usualPharmacyName":{
+            "type":"string"
+        },
+        "usualPharmacyPhone":{
+            "type":"string"
+        },
+        "pathology":{
+            "type":"string"
+        },
+        "treatment":{
+            "type":"string"
+        },
+        "allergy":{
+            "type":"string"
+        },
+        "adresseStreet":{
+            "type":"string"
+        },
+        "adresseZipcode":{
+            "type":"number"
+        },
+        "adresseCity":{
+            "type":"string"
+        },
+        "additionOfAddressFloor":{
+            "type":"string"
+        },
+        "additionOfAddressDoor":{
+            "type":"number"
+        },
+        "additionOfAddressDigiCode":{
+            "type":"number"
+        },
+        "alarmSystem":{
+            "type":"Boolean"
+        },
+        "petsOfCompany":{
+            "type":"string"
+        }
+    },
+    "validations": [],
+    "relations": {
+        "user": {
+            "type": "belongsTo",
+            "model": "user",
+            "foreignKey": "userId"
+        },
+        "comments": {
+            "type": "hasMany",
+            "model": "Comment",
+            "foreignKey": "patientSheetId"
+        }
+    },
+    "methods": {},
+    "acls": [{
+        "accessType": "READ",
+        "principalType": "ROLE",
+        "principalId": "admin",
+        "permission": "ALLOW"
+    },
+    {
+        "accessType": "READ",
+        "principalType": "ROLE",
+        "principalId": "$owner",
+        "permission": "ALLOW"
+    },
+    {
+        "accessType": "WRITE",
+        "principalType": "ROLE",
+        "principalId": "admin",
+        "permission": "ALLOW"
+    },
+    {
+        "accessType": "WRITE",
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+    },
+    {
+        "accessType": "READ",
+        "principalType": "ROLE",
+        "principalId": "$everyone",
+        "permission": "DENY"
+    },
+    {
+        "accessType": "READ",
+        "principalType": "ROLE",
+        "principalId": "$unauthenticated",
+        "permission": "DENY"
+    },
+    {
+        "accessType": "WRITE",
+        "principalType": "ROLE",
+        "principalId": "$unauthenticated",
+        "permission": "DENY"
+    }
+]
+
+}

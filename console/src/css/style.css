@@ -1,0 +1,70 @@
+html,
+body {
+  height: 100%;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+
+.message-list-container {
+  height: 100%;
+  background-color: white;
+}
+
+.message-list {
+  /* max-height: 300px; */
+  /* overflow-y: scroll; */
+}
+
+.rce-mbox {
+  box-shadow: none;
+  background-color: #e6e6eb;
+  margin-left: 10px;
+}
+
+.rce-mbox.rce-mbox-right {
+  margin-right: 10px;
+  border-top-right-radius: 5px;
+  background-color: #008FFA;
+  color: white
+}
+
+.rce-mbox.rce-mbox-right .rce-mbox-time {
+  color: white
+}
+
+.rce-mbox-left-notch {
+  display: none;
+}
+
+.rce-mbox-right-notch {
+  display: none;
+}
+
+.rce-mbox-time {
+  font-size: 10px;
+}
+
+.rce-container-input {
+  border-top-color: #ececec;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+.DateRangePickerInput__withBorder {
+  width: 215px;
+}
+
+/* div[class^='Support-card'],
+div[class*=' Support-card'] {
+  overflow-y: scroll;
+} */
+
+/* div[class^='ChatList-root'] nav[class^='MuiList-padding'],
+div[class^='ChatList-root'] nav[class*=' MuiList-padding'] {
+  padding-bottom: 0px;
+  padding-top: 0px;
+} */

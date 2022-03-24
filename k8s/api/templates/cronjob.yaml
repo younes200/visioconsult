@@ -1,0 +1,32 @@
+{{- range $job := .Values.jobs }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $.Release.Name }}-{{ $job.name }}
+spec:
+  concurrencyPolicy: {{ $job.concurrencyPolicy }}
+  failedJobsHistoryLimit: {{ $job.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ $.Release.Name }}
+            release: {{ $.Release.Name }}-{{ $job.name }}
+        spec:
+          imagePullSecrets:
+            - name: gitlab-registry-credentials        
+          containers:
+          - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+            imagePullPolicy: {{ $.Values.image.pullPolicy }}
+            name: {{ $job.name }}-job
+            command: {{ $job.command }}
+            args: {{ $job.args }}
+            envFrom:
+            - configMapRef:
+                name: {{ $.Release.Name }}-env-configmap
+          restartPolicy: OnFailure
+  schedule: {{ $job.schedule | quote }}
+  successfulJobsHistoryLimit: {{ $job.successfulJobsHistoryLimit }}
+  {{- end }}

@@ -1,0 +1,26 @@
+## {{&summary}}
+### {{toUpperCase method}} {{&path}}
+
+
+```javascript
+import { {{&methodName}} } from 'Agent'
+
+// {{&summary}}
+let query = {
+{{#parameters}}
+  {{^isSingleton}}
+  {{&camelCaseName}}: null // {{&description}} {{requireFilter required}}
+  {{/isSingleton}}
+{{/parameters}}  
+}
+
+try {
+  let {data} = await {{&methodName}}(query)
+  if (data) {
+    // TODO
+  }  
+}catch(e){
+  console.error(e)
+}
+
+```

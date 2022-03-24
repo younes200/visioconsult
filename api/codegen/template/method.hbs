@@ -1,0 +1,54 @@
+/**
+* {{&summary}}
+* request: {{&methodName}}
+* URL: {{toUpperCase method}} {{&path}}
+{{#parameters}}
+    {{^isSingleton}} * @param {{&camelCaseName}} - {{&description}}{{/isSingleton}}
+{{/parameters}}
+*/
+export const {{&methodName}} = function(parameters = {}) {
+    const config = parameters.$config
+    let path = '{{&path}}'
+    let body
+    let queryParameters = {}
+    let form = {}
+
+{{#parameters}}
+    {{#isQueryParameter}}
+        if(parameters['{{&camelCaseName}}'] !== undefined) {
+            queryParameters['{{&name}}'] = parameters['{{&camelCaseName}}']
+        }
+    {{/isQueryParameter}}
+
+    {{#isPathParameter}}
+        path = path.replace('{{brackets name}}', `${parameters['{{&camelCaseName}}']}`)
+    {{/isPathParameter}}
+
+    {{#isBodyParameter}}
+        if(parameters['{{&camelCaseName}}'] !== undefined) {
+            body = parameters['{{&camelCaseName}}']
+        }
+    {{/isBodyParameter}}
+
+    {{#isFormParameter}}
+        if(parameters['{{&camelCaseName}}'] !== undefined) {
+            form['{{&name}}'] = parameters['{{&camelCaseName}}']
+        }
+    {{/isFormParameter}}
+
+    {{#required}}
+        if(parameters['{{&camelCaseName}}'] === undefined) {
+            return Promise.reject(new Error('Missing required {{&paramType}} parameter: {{&camelCaseName}}'))
+        }
+    {{/required}}
+
+{{/parameters}}
+
+if(parameters.$queryParameters) {
+    Object.keys(parameters.$queryParameters).forEach(function(parameterName){
+        queryParameters[parameterName] = parameters.$queryParameters[parameterName]
+    });
+}
+
+    return request('{{toLowerCase method}}', path, body, queryParameters, form, config)
+}

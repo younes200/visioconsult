@@ -1,0 +1,8 @@
+[
+ {
+  "origin": ["https://api.visioconsult.care", "https://console.visioconsult.care", "http://localhost:4001"],
+  "responseHeader": ["*"],
+  "method": ["GET", "HEAD", "DELETE", "PUT"],
+  "maxAgeSeconds": 3600
+ }
+]
