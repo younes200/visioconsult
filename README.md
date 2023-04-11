@@ -1,11 +1,14 @@
 # Visio Consult
 
-[![pipeline status](https://gitlab.com/io-team/visioconsult/badges/master/pipeline.svg)](https://gitlab.com/io-team/visioconsul/commits/master)
+Visio Consult platform refers to a technological system that allows individuals to remotely control robots, as well as experience a sense of presence in a remote location through telepresence. With this system, users can operate robots and perform tasks from a distance, such as exploring hazardous environments or conducting inspections. Additionally, the telepresence feature enables individuals to virtually be present in a remote location and interact with the environment, allowing for improved collaboration and communication.
 
-*   [Planning](https://docs.google.com/spreadsheets/d/1UESx-AZ891LQGWGqOfq3S4KfDkobWeCYLtT_pw9bBJo/edit#gid=0)
-*   [Visio Consult Console Website](https://console.visioconsult.care)
-*   [Visio Consult Operator Website](https://visioconsult.care)
-*   [Download last Tablet Apk](https://gitlab.com/io-team/visioconsult/-/jobs/artifacts/master/download?job=tablet)
+Overall, this platform has various applications, ranging from industrial and commercial settings to healthcare and education. It offers the potential to enhance efficiency, productivity, and safety in various industries while also providing new opportunities for remote work and collaboration.
+
+The project is powered by [Janus WebRTC server](https://janus.conf.meetecho.com) and [React Native WebRTC](https://github.com/react-native-webrtc/react-native-webrtc) 
+
+*   Video presentation : [https://www.youtube.com/watch?v=F3UFjFdHcI8](https://www.youtube.com/watch?v=F3UFjFdHcI8)
+*   [Console Website](https://console.visioconsult.care)
+*   [Operator Website](https://visioconsult.care)
 
 ### Prerequisites
 
