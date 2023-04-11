@@ -96,8 +96,6 @@ Env variables *FIREBASE_TOKEN* *FIREBASE_PROJECT* are saved in [GitLab CI](https
 
 ![](doc/Architecture.png)
 
-[Google Drive link](https://drive.google.com/file/d/1MGI7195DuwBKXn5Fyf-G8YA6r6wNT2-V/view?usp=sharing)
-
 
 ### GKE cluster setup
 
